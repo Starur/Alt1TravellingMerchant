@@ -1,0 +1,16 @@
+{
+	"appName": "Travelling Merchant's Shop",
+	"description": "Travelling Merchant's Shop current stock",
+	"appUrl": "./index.html",
+	"configUrl": "./appconfig.json",
+	"iconUrl": "./imgs/Uncharted_island_map.png",
+	"defaultWidth": 530,
+	"defaultHeight": 315,
+	"minWidth": 530,
+	"minHeight": 315,
+	"maxWidth": 1000,
+	"maxHeight": 1000,
+	"requestHandlers": [ ],
+	"activators": [	],
+	"permissions": "overlay"
+}

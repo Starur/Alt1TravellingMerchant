@@ -71,6 +71,12 @@ const items: IItem[] = [
 			use: "5% Fishing experience boost for 3 minutes."
 		},
 		{
+			name: "Broken fishing rod",
+			cost: "50,000",
+			quantity: "1",
+			use: "5-10% bonus catch rate for 3-30 minutes."
+		},
+		{
 			name: "Small goebie burial charm",
 			cost: "50,000",
 			quantity: "1",

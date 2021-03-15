@@ -1,9 +1,9 @@
 {
-	"appName": "Travelling Merchant's Shop",
+	"appName": "TMs Shop",
 	"description": "Travelling Merchant's Shop current stock",
-	"appUrl": "./index.html",
-	"configUrl": "./appconfig.json",
-	"iconUrl": "./imgs/Uncharted_island_map.png",
+	"appUrl": "https://starur.github.io/index.html",
+	"configUrl": "https://starur.github.io/appconfig.json",
+	"iconUrl": "https://starur.github.io/img/Uncharted_island_map.png",
 	"defaultWidth": 530,
 	"defaultHeight": 315,
 	"minWidth": 530,
@@ -12,5 +12,5 @@
 	"maxHeight": 1000,
 	"requestHandlers": [ ],
 	"activators": [	],
-	"permissions": "overlay"
+	"permissions": "none"
 }

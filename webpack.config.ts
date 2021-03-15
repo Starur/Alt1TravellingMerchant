@@ -12,7 +12,7 @@ var outdir = path.resolve(__dirname, "./dist/");
 var config = new alt1chain(srcdir, { ugly: false });
 
 //exposes all root level exports as UMD (as named package "testpackege" or "TEST" in global scope)
-config.makeUmd("testpackage", "TEST");
+config.makeUmd("merchpackage", "MERCH");
 
 //the name and location of our entry file (the name is used for output and can contain a relative path)
 config.entry("index", "./index.ts");

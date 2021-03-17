@@ -95,7 +95,7 @@ const items: IItem[] = [
 			use: "Variety of rewards."
 		},
 		{
-			name: "Menaphite gift offering (Medium)",
+			name: "Menaphite gift offering (medium)",
 			cost: "300,000",
 			quantity: "1",
 			use: "Variety of rewards."
@@ -318,8 +318,10 @@ function slotAB(rot: number[], offsetFromNow){
 	
 	var rotationWithOffset = (rotation - 1);
 	var name = itemIDs[(rot[rotationWithOffset]-1)];
-	
-	var item = items.find( obj => obj.name === name);
+	console.log(name);
+	console.log(items)
+	var item = items.find(obj => obj.name.toLocaleLowerCase() == name.toLocaleLowerCase());
+	console.log(item);
 	return item;
 }
 
@@ -346,6 +348,7 @@ function slotC(offsetFromNow){
 }
 
 export function start() {
+
 	var currentItems: IItem[] = [items[0], slotA(0), slotB(0), slotC(0)]
 
 	var $output = $('#output');

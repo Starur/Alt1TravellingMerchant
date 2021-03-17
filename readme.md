@@ -1,5 +1,3 @@
-# Minimal Alt1/webpack/typescript example
-
 How to use
 ```sh
 # To initialize the repo and install dependencies:

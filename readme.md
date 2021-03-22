@@ -1,13 +1,12 @@
-How to use
-```sh
-# To initialize the repo and install dependencies:
-npm i
-# Build your code:
-npm run build
-# Or, alternatively to auto-rebuild when source files are changed:
-npm run watch
-```
+# Alt1TravellingMerchant
 
-You can open `./dist/index.html` in your browser and it will give some basic functionality based on pasted images.
+Tracks Travelling Merchant's current stock for each day.
 
-You can also open it in the Alt1 browser and click the `add app` button that appears to get some basic alt1 functionality.
+## Installation:
+Install by copying this either copy pasting the following link in your browser. 
+
+alt1://addapp/https://starur.github.io/appconfig.json
+
+Or, by going to the following link in the Alt1 Browser
+
+https://starur.github.io/

@@ -143,12 +143,6 @@ const items: IItem[] = [
 			use: "Currency for Shattered Worlds reward shop."
 		},
 		{
-			name: "Anima crystal",
-			cost: "150,000",
-			quantity: "1",
-			use: "500 faction reputation (Heart of Gielinor)."
-		},
-		{
 			name: "Advanced pulse core",
 			cost: "800,000",
 			quantity: "1-3",
@@ -318,10 +312,8 @@ function slotAB(rot: number[], offsetFromNow){
 	
 	var rotationWithOffset = (rotation - 1);
 	var name = itemIDs[(rot[rotationWithOffset]-1)];
-	console.log(name);
-	console.log(items)
 	var item = items.find(obj => obj.name.toLocaleLowerCase() == name.toLocaleLowerCase());
-	console.log(item);
+
 	return item;
 }
 
@@ -348,11 +340,27 @@ function slotC(offsetFromNow){
 }
 
 export function start() {
-
+	var notifications = new Notifications();
 	var currentItems: IItem[] = [items[0], slotA(0), slotB(0), slotC(0)]
 
 	var $output = $('#output');
 	var $table = $('<table id="outputtable">');
+
+	var _s = window.localStorage.getItem('merchant_notifications');
+	var notificationSlotChart: string = "";
+	var notificationSlotA: string = "";
+	var notificationSlotB: string = "";
+	var notificationSlotC: string = "";
+
+	if(_s){
+		var lsItems = JSON.parse(_s);
+		lsItems.items.forEach(element => {
+			notificationSlotChart += items[0].name.toLocaleLowerCase() === element.toLocaleLowerCase() ? "notis" : "";
+			notificationSlotA += slotA(0).name.toLocaleLowerCase() === element.toLocaleLowerCase() ? "notis" : "";
+			notificationSlotB += slotB(0).name.toLocaleLowerCase() === element.toLocaleLowerCase() ? "notis" : "";
+			notificationSlotC += slotC(0).name.toLocaleLowerCase() === element.toLocaleLowerCase() ? "notis" : "";
+		});
+	}
 
 		$table.append(
 			$('<tr>').append(
@@ -363,21 +371,110 @@ export function start() {
 			));
 
 		$.each(currentItems, function(index, value: IItem){
+			var notisClass: string = "";
+
+			switch(index){
+				case 0:
+					notisClass = notificationSlotChart;
+				break;
+				case 1:
+					notisClass = notificationSlotA;
+				break;
+				case 2:
+					notisClass = notificationSlotB;
+				break;
+				case 3:
+					notisClass = notificationSlotC;
+				break;
+				default: break;
+			}
 			$table.append(
-				$('<tr id="plankrow">').append(
-					$('<td class="imgcell">').append($('<img>').attr('src', src_imgs[value.name]?.default)),
-					$('<td class="qtycell">').append($('<img>').attr('src', src_imgs["coins"].default)).append(" " + value.cost.toString()),
-					$('<td class="qtycell">').text(value.quantity),
-					$('<td class="qtycell">').text(value.use)
+				$('<tr id="row">').append(
+					$('<td class="imgcell '+notisClass+'">').append($('<img>').attr('src', src_imgs[value.name]?.default)),
+					$('<td class="qtycell '+notisClass+'">').append($('<img>').attr('src', src_imgs["coins"].default)).append(" " + value.cost.toString()),
+					$('<td class="qtycell '+notisClass+'">').text(value.quantity),
+					$('<td class="qtycell '+notisClass+'">').text(value.use)
 				)
 			);
-		});		
+		});
 
 		$output.empty().append($table);
 }
 
 if (window.alt1) {
-	// Tell alt1 about the app (this makes alt1 show the add app button when running inside the embedded browser)
-	// Also updates app settings if they are changed
 	alt1.identifyAppUrl("./appconfig.json");
 }
+
+export function makeNewContract(){
+	$('input[type=checkbox]').prop('checked',false);
+	window.localStorage.setItem('merchant_notifications', "");
+}
+
+function log(...args) {
+	args.forEach(arg => console.log(arg))
+}
+
+class Notifications {
+	constructor() {
+		$('#promolinks a').on('click', function(){
+			window.open($(this).attr('js_href'), '_blank');
+		});
+
+		$('#showsettingsbutton').on('click', function(){
+			if ($('#settingscontainer').hasClass('settings-hidden')) {
+				$('#settingscontainer').removeClass('settings-hidden').addClass('settings-shown');
+				$('#showsettingsbutton').text('Hide notifications');
+			} else {
+				$('#settingscontainer').removeClass('settings-shown').addClass('settings-hidden');
+				$('#showsettingsbutton').text('Handle notifications');
+			}
+		});
+
+		var $table = $('#notificationstable');
+		
+		$.each(items.sort(SortByName), function(index, value: IItem){
+			var $p = $('<tr id="row'+index+'">');
+			var parentIndex = (index-1);
+
+			if(index % 2){
+				var $p2 = $("#row"+parentIndex);
+				$p2.append($("<td class='qtycell'>").append("<input type='checkbox' name='"+value.name+"' value='"+value.name+"'>").append(value.name));
+			} else {
+				$table.append($p.append($("<td class='qtycell'>").append("<input type='checkbox' name='"+value.name+"' value='"+value.name+"'>").append(value.name)));
+			}
+		});
+
+		var s: any = {
+			items: []
+		};
+
+		var _s = window.localStorage.getItem('merchant_notifications');
+
+		if(_s){
+			var lsItems = JSON.parse(_s);
+
+			lsItems.items.forEach(element => {
+				s.items.push(element);
+				$('input[name="'+element+'"]').prop("checked", true);
+			});
+		}
+
+		$("#notificationstable").on("change", "input[type='checkbox']", function () {
+			var $item = $(this);
+			if($item.is(":checked")){
+				s.items.push($item.val());
+				window.localStorage.setItem('merchant_notifications', JSON.stringify(s));
+			} else {
+				s.items.splice($.inArray($item.val(), s));
+				window.localStorage.setItem('merchant_notifications', JSON.stringify(s));
+			}
+		 });
+	}
+}
+
+//This will sort your array
+function SortByName(a, b){
+	var aName = a.name.toLowerCase();
+	var bName = b.name.toLowerCase(); 
+	return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+  }

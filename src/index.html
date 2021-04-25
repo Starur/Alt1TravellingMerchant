@@ -15,12 +15,12 @@
             text-align: center;
         }
 
-        #outputtable td:nth-child(4) {
+        #outputtable .qtycell:nth-child(4) {
             text-align: left;
             width: 300px;
         }
 
-        #output {
+        #output, #output-minimal {
             padding-left: 0.5em;
         }
 
@@ -40,15 +40,15 @@
             border-collapse: collapse;
         }
 
-        #outputtable .imgcell {
+        #outputtable #output-minimal .imgcell {
             text-align: center;
         }
 
-        #outputtable .qtycell {
+        #outputtable #output-minimal .qtycell {
             text-align: center;
         }
 
-        #outputtable .notis {
+        #outputtable #output-minimal .notis {
             text-align: center;
             background-color: rgba(133, 30, 30, 0.548);
         }
@@ -71,7 +71,7 @@
 
     #settingscontainer {
         width:507px;
-        padding-top: 0.5em;
+        padding-top: 1em;
         padding-left: 0.5em;
     }
 
@@ -87,16 +87,27 @@
 	#settingscontainer.settings-shown #showsettingsbutton:after {
 		content: "▲";
 	}
+
+    .hidden-table{
+        display: none;
+    }
+     
+    .shown-table{
+        display: block;
+    }
+
     </style>
 </head>
 
 <body class="nis" onload="MERCH.start()">
-    <h2 style="margin-left: 0.3em;">Travelling Merchant's Shop - Current stock</h2>
+    <h2 style="margin-left: 0.3em;" id="title">Travelling Merchant's Shop - Current stock</h2>
     <div id="output"></div>
+    <div id="output-minimal" class="hidden-table"></div>
 
     <div id="settingscontainer" class="settings-hidden">
-        <div id="showsettingsbutton">Handle notifications</div>
+        <div id="showsettingsbutton">Handle settings/notifications</div>
         <div id="settings">
+            <p><input type="checkbox" id="lightweight" name="lightweightMode"> Lightweight table</p>
             <div id="notificationsOutput">
                 <table id="notificationstable"></table>
             </div>

@@ -339,12 +339,51 @@ function slotC(offsetFromNow){
 	return item
 }
 
+function changeClass(id, removeClass, addClass){
+	$(id).removeClass(removeClass).addClass(addClass);
+}
+
+function hideMinimal(){
+	changeClass('#output-minimal', 'shown-table', 'hidden-table');
+	changeClass('#output', 'hidden-table', 'shown-table');
+	$('#title').show();
+}
+
+function showMinimal(){
+	changeClass('#output-minimal', 'hidden-table', 'shown-table');
+	changeClass('#output', 'shown-table', 'hidden-table');
+	$('#title').hide();
+	$('input[name="lightweightMode"]').prop("checked", true);
+}
+
 export function start() {
+	
+	var _hidden = window.localStorage.getItem('merchant_settings');
+	
+	if(_hidden === "minimal" && $('#output-minimal').hasClass('hidden-table')) {
+		showMinimal();
+	} else {
+		hideMinimal();
+	}
+
+	$('#lightweight').on('click', function(){
+		if ($('#output-minimal').hasClass('hidden-table')) {
+			showMinimal();
+			window.localStorage.setItem('merchant_settings', "minimal");
+		} else {
+			hideMinimal();
+			window.localStorage.setItem('merchant_settings', "full");
+		}
+	});
+
 	var notifications = new Notifications();
 	var currentItems: IItem[] = [items[0], slotA(0), slotB(0), slotC(0)]
-
+	
+	var $output_minimal = $("#output-minimal");
 	var $output = $('#output');
+
 	var $table = $('<table id="outputtable">');
+	var $table_minimal = $('<table id="outputtable">');
 
 	var _s = window.localStorage.getItem('merchant_notifications');
 	var notificationSlotChart: string = "";
@@ -362,13 +401,18 @@ export function start() {
 		});
 	}
 
-		$table.append(
-			$('<tr>').append(
-				$('<th>').text('Item'),
-				$('<th>').text('Cost'),
-				$('<th>').text('Quantity'),
-				$('<th>').text('Use')
-			));
+	$table.append(
+		$('<tr>').append(
+			$('<th>').text('Item'),
+			$('<th>').text('Cost'),
+			$('<th>').text('Quantity'),
+			$('<th>').text('Use')
+		));
+
+	$table_minimal.append(
+		$('<tr>').append(
+			$('<th colspan="4">').text('Item'),
+		));
 
 		$.each(currentItems, function(index, value: IItem){
 			var notisClass: string = "";
@@ -396,9 +440,14 @@ export function start() {
 					$('<td class="qtycell '+notisClass+'">').text(value.use)
 				)
 			);
+
+			$table_minimal.append(
+					$('<td class="imgcell '+notisClass+'">').append($('<img>').attr('src', src_imgs[value.name]?.default)),
+			);
 		});
 
 		$output.empty().append($table);
+		$output_minimal.empty().append($table_minimal);
 }
 
 if (window.alt1) {
@@ -431,8 +480,8 @@ class Notifications {
 		});
 
 		var $table = $('#notificationstable');
-		
-		$.each(items.sort(SortByName), function(index, value: IItem){
+		var sortedItems = items;
+		$.each(sortedItems, function(index, value: IItem){
 			var $p = $('<tr id="row'+index+'">');
 			var parentIndex = (index-1);
 

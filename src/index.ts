@@ -472,10 +472,10 @@ class Notifications {
 		$('#showsettingsbutton').on('click', function(){
 			if ($('#settingscontainer').hasClass('settings-hidden')) {
 				$('#settingscontainer').removeClass('settings-hidden').addClass('settings-shown');
-				$('#showsettingsbutton').text('Hide notifications');
+				$('#showsettingsbutton').text('Hide settings/notifications');
 			} else {
 				$('#settingscontainer').removeClass('settings-shown').addClass('settings-hidden');
-				$('#showsettingsbutton').text('Handle notifications');
+				$('#showsettingsbutton').text('Handle settings/notifications');
 			}
 		});
 

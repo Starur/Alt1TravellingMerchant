@@ -48,7 +48,8 @@ const src_imgs = {
 	"Tangled fishbowl": require("./imgs/Tangled_fishbowl.png"),
 	"Unfocused damage enhancer": require("./imgs/Unfocused_damage_enhancer.png"),
 	"Unfocused reward enhancer": require("./imgs/Unfocused_reward_enhancer.png"),
-	"Unstable air rune": require("./imgs/Unstable_air_rune.png")
+	"Unstable air rune": require("./imgs/Unstable_air_rune.png"),
+	"Horn of honour": require("./imgs/Horn_of_honour.png")
 }
 
 const items: IItem[] = [
@@ -243,6 +244,12 @@ const items: IItem[] = [
 			cost: "10,000,000",
 			quantity: "1",
 			use: "Allows choice of any reward enhancer at the cost of lower charges."
+		},
+		{
+			name: "Horn of honour",
+			cost: "1,000,000",
+			quantity: "1",
+			use: "Awards 200 Barbarian Assault Honour Points in a role of the player's choice."
 		}
 	]
 
@@ -256,7 +263,7 @@ const itemIDs = [
 	'Unfocused damage enhancer', 'Unfocused reward enhancer',
 	'Silverhawk down', 'Advanced pulse core', 'Dungeoneering Wildcard',
 	'Dragonkin lamp', 'Starved ancient effigy', 'Harmonic dust',
-	'Crystal triskelion', 'Deathtouched dart'
+	'Crystal triskelion', 'Deathtouched dart', 'Horn of honour'	
 ]
 
 const slotCitemMap = [
@@ -268,21 +275,25 @@ const slotCitemMap = [
 ]
 
 const slotArotation = [
-	18, 22, 17, 2, 15, 8, 1, 9, 8, 5, 11, 18, 21, 25, 2, 14, 25, 17, 14, 3,
-	8, 5, 9, 21, 5, 11, 21, 19, 25, 17, 14, 3, 17, 2, 3, 5, 1, 9, 21, 19,
-	11, 18, 19, 24, 2, 14, 22, 1, 14, 3, 5, 1, 9, 21, 8, 20, 21, 19, 20, 14,
-	14, 3, 1, 17, 3, 5, 17, 6, 21, 19, 20, 14, 19, 24, 14, 18, 22, 1, 17, 6,
-	5, 1, 6, 19, 8, 20, 18, 21, 20, 14, 18, 22, 1, 17, 15, 8, 17, 6, 8, 5,
-	20, 14, 21, 25, 14, 18, 25, 17, 17, 6, 8, 5, 6, 19, 5, 11, 18, 21, 25, 17
+	1, 15, 1, 6, 4, 8, 14, 9, 12, 17, 9, 13, 2, 16, 2, 7, 1, 5, 11, 6,
+	9, 14, 10, 14, 18, 13, 18, 4, 17, 2, 8, 3, 6, 11, 7, 11, 19, 14, 15, 1,
+	14, 18, 5, 19, 7, 12, 8, 12, 16, 11, 12, 17, 15, 19, 6, 1, 4, 9, 5, 9,
+	13, 8, 13, 18, 12, 16, 3, 17, 1, 6, 2, 6, 10, 5, 10, 15, 13, 17, 19, 14,
+	17, 3, 18, 3, 11, 6, 11, 16, 10, 14, 16, 11, 18, 4, 19, 4, 8, 3, 8, 13,
+	7, 11, 17, 12, 15, 1, 16, 1, 5, 19, 5, 10, 4, 8, 14, 9, 16, 2, 13, 17
 ]
 
 const slotBrotation = [
-	18, 22, 17, 8, 14, 3, 15, 19, 19, 24, 2, 5, 18, 22, 3, 8, 8, 20, 18, 17,
-	21, 25, 22, 5, 5, 11, 21, 2, 19, 24, 25, 1, 1, 9, 19, 14, 5, 11, 24, 17,
-	17, 6, 8, 18, 1, 9, 11, 14, 14, 3, 5, 21, 17, 6, 9, 18, 18, 22, 17, 8,
-	2, 15, 6, 21, 21, 25, 2, 5, 14, 3, 15, 19, 19, 24, 14, 1, 21, 25, 3, 8,
-	8, 20, 18, 17, 19, 24, 25, 1, 1, 9, 21, 2, 8, 20, 24, 17, 17, 6, 8, 18,
-	5, 11, 20, 2, 2, 15, 5, 21, 1, 9, 11, 14, 14, 3, 1, 19, 2, 15, 9, 18
+	1, 15, 1, 1, 14, 9, 19, 14, 3, 17, 18, 18, 12, 7, 17, 12, 1, 15, 1, 1,
+	10, 5, 15, 10, 18, 13, 18, 18, 8, 3, 13, 8, 16, 11, 16, 16, 10, 5, 11, 6,
+	14, 9, 14, 14, 8, 3, 13, 8, 16, 11, 12, 12, 6, 1, 11, 6, 14, 9, 14, 14,
+	4, 18, 9, 4, 12, 7, 12, 12, 2, 16, 7, 2, 10, 5, 10, 10, 4, 18, 5, 19,
+	8, 3, 8, 8, 2, 16, 7, 2, 10, 5, 6, 6, 19, 14, 5, 19, 8, 3, 8, 8,
+	17, 12, 3, 17, 6, 1, 6, 6, 15, 10, 1, 15, 4, 18, 4, 4, 17, 12, 18, 13
+]
+
+const slotABinitial = [
+	32, 15, 9, 20, 25, 17, 5, 19, 18, 2, 3, 6, 11, 24, 22, 1, 8, 21, 14
 ]
 
 const slotCrotation = [
@@ -309,9 +320,13 @@ function rotation_days(interval: number, rotation_count: number, offset: number)
 
 function slotAB(rot: number[], offsetFromNow){
 	var rotation = rotation_days(1, rot.length, 39+(offsetFromNow || 0))
+	var current = rotation_days(120, slotABinitial.length, 39+(offsetFromNow || 0))
+
+	var currentPos = rot[rotation - 1]
+	var outputPos = ((currentPos + current -2) % slotABinitial.length) + 1
+	var outputItemId = slotABinitial[outputPos - 1]
+	var name = itemIDs[outputItemId - 1]
 	
-	var rotationWithOffset = (rotation - 1);
-	var name = itemIDs[(rot[rotationWithOffset]-1)];
 	var item = items.find(obj => obj.name.toLocaleLowerCase() == name.toLocaleLowerCase());
 
 	return item;
